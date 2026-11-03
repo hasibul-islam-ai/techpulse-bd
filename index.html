@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechPulse BD</title>
+<meta name="description" content="TechPulse BD - bangla tech and AI news">
+<style>
+/* basic reset + page styles */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Noto Sans Bengali", "SolaimanLipi", Arial, sans-serif;
+  font-size: 15px;
+  color: #1a1a1a;
+  background: #fff;
+}
+
+a { color: #0b4f9c; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+#page { max-width: 980px; margin: 0 auto; padding: 0 12px; }
+
+/* --- top bar --- */
+#topbar {
+  border-bottom: 1px solid #ddd;
+  font-size: 12px;
+  color: #666;
+}
+#topbar .in {
+  max-width: 980px; margin: 0 auto; padding: 5px 12px;
+  display: flex; justify-content: space-between;
+}
+
+/* --- header --- */
+#header { padding: 18px 0 10px; border-bottom: 3px double #1a1a1a; }
+#header h1 { font-size: 34px; letter-spacing: -1px; }
+#header h1 a { color: #111; }
+#header h1 .bd { color: #0b4f9c; }
+#tagline { font-size: 12px; color: #777; margin-top: 2px; }
+#header .lang { float: right; margin-top: 12px; }
+#header .lang button {
+  font-family: inherit; font-size: 12px; padding: 4px 10px;
+  border: 1px solid #999; background: #f5f5f5; cursor: pointer;
+}
+#header .lang button:hover { background: #e8e8e8; }
+
+/* --- nav --- */
+#nav { border-bottom: 1px solid #ccc; }
+#nav ul { list-style: none; display: flex; flex-wrap: wrap; }
+#nav li a {
+  display: block; padding: 8px 14px;
+  font-size: 14px; font-weight: bold; color: #333;
+}
+#nav li a:hover, #nav li a.on { background: #f0f0f0; text-decoration: none; }
+
+/* --- layout --- */
+#main { display: flex; gap: 24px; padding-top: 16px; }
+#content { flex: 1; min-width: 0; }
+#sidebar { width: 220px; font-size: 13px; }
+@media (max-width: 720px) {
+  #main { display: block; }
+  #sidebar { width: 100%; margin-top: 20px; }
+}
+
+/* --- featured story --- */
+.story-lead { border-bottom: 1px solid #e5e5e5; padding-bottom: 16px; margin-bottom: 16px; }
+.kicker {
+  display: inline-block; font-size: 11px; font-weight: bold;
+  color: #b30000; text-transform: uppercase; letter-spacing: 1px;
+}
+.story-lead h2 { font-size: 26px; line-height: 1.25; margin: 6px 0 8px; }
+.story-lead h2 a { color: #111; }
+.story-lead h2 a:hover { color: #0b4f9c; }
+.story-lead p { color: #444; max-width: 640px; }
+.byline { font-size: 12px; color: #888; margin-top: 8px; }
+.byline a { color: #888; }
+
+/* --- post list --- */
+.post {
+  border-bottom: 1px solid #eee;
+  padding: 14px 0;
+  display: flex; gap: 12px;
+}
+.post:last-child { border-bottom: none; }
+.post .cat {
+  width: 92px; min-width: 92px; font-size: 11px; font-weight: bold;
+  text-transform: uppercase; color: #555; padding-top: 3px;
+}
+.post h3 { font-size: 17px; line-height: 1.3; font-weight: bold; }
+.post h3 a { color: #1a1a1a; }
+.post h3 a:hover { color: #0b4f9c; }
+.post p { font-size: 13px; color: #555; margin-top: 4px; }
+.post .when { font-size: 11px; color: #999; margin-top: 6px; }
+
+/* --- article page --- */
+.article h2 { font-size: 28px; line-height: 1.25; margin: 6px 0 10px; }
+.article-body { max-width: 640px; margin-top: 16px; }
+.article-body p { margin-bottom: 14px; line-height: 1.75; font-size: 16px; }
+.back-link { margin: 16px 0; font-size: 13px; }
+
+/* --- sidebar --- */
+#sidebar h4 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
+  border-bottom: 2px solid #1a1a1a; padding-bottom: 5px; margin-bottom: 10px;
+}
+#sidebar ul { list-style: none; margin-bottom: 20px; }
+#sidebar li { padding: 6px 0; border-bottom: 1px dotted #ccc; }
+#sidebar li a { color: #1a1a1a; font-weight: bold; font-size: 13px; }
+#sidebar li .when { color: #999; font-size: 11px; font-weight: normal; }
+#about-box {
+  border: 1px solid #ddd; padding: 10px; font-size: 12px;
+  color: #555; background: #fafafa; margin-bottom: 20px;
+}
+
+/* --- footer --- */
+#footer {
+  margin-top: 30px; padding: 16px 0 24px;
+  border-top: 3px double #1a1a1a;
+  font-size: 12px; color: #777;
+}
+#footer .in {
+  max-width: 980px; margin: 0 auto; padding: 0 12px;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+}
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <div class="in">
+    <span id="todays-date"></span>
+    <span><a href="#">RSS</a> | <a href="#">Newsletter</a> | <a href="#">Contact</a></span>
+  </div>
+</div>
+
+<div id="page">
+
+  <div id="header">
+    <button class="lang" onclick="toggleLang()">English</button>
+    <h1><a href="#" onclick="goHome();return false;">Tech<span class="bd">Pulse</span> BD</a></h1>
+    <div id="tagline">টেক ও এআই নিউজ</div>
+    <div style="clear:both"></div>
+  </div>
+
+  <div id="nav">
+    <ul>
+      <li><a href="#" onclick="showCat('all');return false;" id="nav-all" class="on">সব খবর</a></li>
+      <li><a href="#" onclick="showCat('ai');return false;" id="nav-ai">AI</a></li>
+      <li><a href="#" onclick="showCat('gadget');return false;" id="nav-gadget">গ্যাজেট</a></li>
+      <li><a href="#" onclick="showCat('startup');return false;" id="nav-startup">স্টার্টআপ</a></li>
+      <li><a href="#" onclick="showCat('security');return false;" id="nav-security">সিকিউরিটি</a></li>
+      <li><a href="#" onclick="showCat('mobile');return false;" id="nav-mobile">মোবাইল</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <div id="content"></div>
+
+    <div id="sidebar">
+      <div id="about-box">
+        <b>এই সাইট সম্পর্কে:</b> TechPulse BD — বাংলাদেশের টেক ও AI নিউজ।
+        সব খবর এক জায়গায়, সহজ ভাষায়। ইমেইল: <a href="mailto:hello@techpulsebd.com">hello@techpulsebd.com</a>
+      </div>
+      <h4>জনপ্রিয় খবর</h4>
+      <ul id="popular-list"></ul>
+      <h4>ক্যাটাগরি</h4>
+      <ul>
+        <li><a href="#" onclick="showCat('ai');return false;">AI</a></li>
+        <li><a href="#" onclick="showCat('gadget');return false;">গ্যাজেট</a></li>
+        <li><a href="#" onclick="showCat('startup');return false;">স্টার্টআপ</a></li>
+        <li><a href="#" onclick="showCat('security');return false;">সিকিউরিটি</a></li>
+        <li><a href="#" onclick="showCat('mobile');return false;">মোবাইল</a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div id="footer">
+  <div class="in">
+    <span>© 2026 TechPulse BD. সব খবর সংরক্ষিত।</span>
+    <span><a href="#">About</a> | <a href="#">Contact</a> | <a href="#">Privacy Policy</a></span>
+  </div>
+</div>
+
+<script>
+/* ==== data ==== */
+
+var CAT_NAMES = {
+  ai: 'AI', gadget: 'গ্যাজেট', startup: 'স্টার্টআপ',
+  security: 'সিকিউরিটি', mobile: 'মোবাইল', tech: 'টেক', tips: 'টিপস'
+};
+
+var CAT_NAMES_EN = {
+  ai: 'AI', gadget: 'Gadgets', startup: 'Startups',
+  security: 'Security', mobile: 'Mobile', tech: 'Tech', tips: 'Tips'
+};
+
+/* posts come from news.json, loaded when the page opens */
+var POSTS = [];
+
+/* ==== state ==== */
+var lang = 'bn';
+var currentView = { type: 'home', cat: 'all' };
+
+/* ==== helpers ==== */
+function T(bn, en) { return lang === 'bn' ? bn : en; }
+
+function catName(c) { return lang === 'bn' ? CAT_NAMES[c] : CAT_NAMES_EN[c]; }
+
+function el(id) { return document.getElementById(id); }
+
+/* sheet category (like 'AI', 'Gadget', 'Mobile') -> site slug */
+function catSlug(c) {
+  var k = String(c || '').toLowerCase();
+  if (k === 'ai' || k === 'gadget' || k === 'startup' || k === 'security' || k === 'mobile' || k === 'tech' || k === 'tips') { return k; }
+  return 'tech';
+}
+
+/* ISO date (2026-11-03) -> বাংলা তারিখ */
+function fmtDate(iso) {
+  var d = new Date(String(iso || '') + 'T00:00:00');
+  if (isNaN(d.getTime())) { return String(iso || ''); }
+  return d.toLocaleDateString(lang === 'bn' ? 'bn-BD' : 'en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+/* news.json -> POSTS */
+function initPosts(data) {
+  POSTS = [];
+  if (data && data.stories && data.stories.length) {
+    for (var i = 0; i < data.stories.length; i++) {
+      var s = data.stories[i];
+      var paras = String(s.article_bn || '').split(/\n+/);
+      var body = [];
+      for (var j = 0; j < paras.length; j++) {
+        var t = paras[j].replace(/\s+/g, ' ').trim();
+        if (t) { body.push(t); }
+      }
+      POSTS.push({
+        id: s.id,
+        cat: catSlug(s.category),
+        date: s.date,
+        title: s.headline_bn || '',
+        desc: s.summary_bn || '',
+        body: body
+      });
+    }
+  }
+  renderAll();
+}
+
+/* ==== render ==== */
+
+function renderHome(cat) {
+  var html = '';
+  var list = cat === 'all' ? POSTS : POSTS.filter(function(p){ return p.cat === cat; });
+
+  if (!list.length) {
+    if (POSTS.length === 0) {
+      html += '<p>এখনো কোনো খবর প্রকাশ করা হয়নি। প্রথম খবর পাবলিশ হলেই এখানে দেখা যাবে।</p>';
+    } else {
+      html += '<p>এই ক্যাটাগরিতে এখনো কোনো খবর নেই।</p>';
+    }
+  } else if (cat === 'all') {
+    var lead = list[0];
+    html += '<div class="story-lead">'
+      + '<span class="kicker">' + T('বিশেষ প্রতিবেদন', 'Featured') + '</span>'
+      + '<h2><a href="#" onclick="openPost(&#39;' + lead.id + '&#39;);return false;">' + lead.title + '</a></h2>'
+      + '<p>' + lead.desc + '</p>'
+      + '<div class="byline">' + fmtDate(lead.date) + ' | ' + catName(lead.cat) + '</div>'
+      + '</div>';
+    list = list.slice(1);
+  }
+
+  for (var i = 0; i < list.length; i++) {
+    var p = list[i];
+    html += '<div class="post">'
+      + '<div class="cat">' + catName(p.cat) + '</div>'
+      + '<div>'
+      + '<h3><a href="#" onclick="openPost(&#39;' + p.id + '&#39;);return false;">' + p.title + '</a></h3>'
+      + '<p>' + p.desc + '</p>'
+      + '<div class="when">' + fmtDate(p.date) + '</div>'
+      + '</div>'
+      + '</div>';
+  }
+
+  el('content').innerHTML = html;
+}
+
+function renderPost(id) {
+  var p = null;
+  for (var i = 0; i < POSTS.length; i++) {
+    if (String(POSTS[i].id) === String(id)) { p = POSTS[i]; break; }
+  }
+  if (!p) { goHome(); return; }
+
+  var html = '<div class="article">'
+    + '<div class="back-link">&laquo; <a href="#" onclick="goHome();return false;">' + T('সব খবরে ফিরে যান', 'Back to all news') + '</a></div>'
+    + '<span class="kicker">' + catName(p.cat) + '</span>'
+    + '<h2>' + p.title + '</h2>'
+    + '<div class="byline">' + fmtDate(p.date) + ' | ' + T('নিজস্ব প্রতিবেদক', 'Staff Reporter') + '</div>';
+
+  for (var j = 0; j < p.body.length; j++) {
+    html += '<p>' + p.body[j] + '</p>';
+  }
+
+  html += '</div>';
+  el('content').innerHTML = html;
+  window.scrollTo(0, 0);
+}
+
+function renderSidebar() {
+  var html = '<ul>';
+  var top = POSTS.slice(0, 5);
+  for (var i = 0; i < top.length; i++) {
+    html += '<li><a href="#" onclick="openPost(&#39;' + top[i].id + '&#39;);return false;">' + top[i].title + '</a>'
+      + '<br><span class="when">' + fmtDate(top[i].date) + '</span></li>';
+  }
+  html += '</ul>';
+  el('popular-list').innerHTML = html;
+}
+
+function renderStaticText() {
+  el('tagline').textContent = T('টেক ও এআই নিউজ', 'Tech & AI News');
+  el('nav-all').textContent = T('সব খবর', 'All News');
+  el('nav-gadget').textContent = T('গ্যাজেট', 'Gadgets');
+  el('nav-startup').textContent = T('স্টার্টআপ', 'Startups');
+  el('nav-security').textContent = T('সিকিউরিটি', 'Security');
+  el('nav-mobile').textContent = T('মোবাইল', 'Mobile');
+  var heads = document.querySelectorAll('#sidebar h4');
+  if (heads.length >= 2) {
+    heads[0].textContent = T('জনপ্রিয় খবর', 'Popular Posts');
+    heads[1].textContent = T('ক্যাটাগরি', 'Categories');
+  }
+  var box = el('about-box');
+  box.innerHTML = '<b>' + T('এই সাইট সম্পর্কে:', 'About:') + '</b> '
+    + T('TechPulse BD — বাংলাদেশের টেক ও AI নিউজ। সব খবর এক জায়গায়, সহজ ভাষায়।',
+       'TechPulse BD — tech and AI news from Bangladesh, in plain language.')
+    + ' ' + T('ইমেইল:', 'Email:') + ' <a href="mailto:hello@techpulsebd.com">hello@techpulsebd.com</a>';
+  el('todays-date').textContent = new Date().toLocaleDateString(
+    lang === 'bn' ? 'bn-BD' : 'en-GB',
+    { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+  );
+}
+
+function renderAll() {
+  renderStaticText();
+  renderSidebar();
+  if (currentView.type === 'post') {
+    renderPost(currentView.id);
+  } else {
+    renderHome(currentView.cat);
+  }
+}
+
+/* ==== actions ==== */
+
+function showCat(cat) {
+  currentView = { type: 'home', cat: cat };
+  var cats = ['all','ai','gadget','startup','security','mobile'];
+  for (var i = 0; i < cats.length; i++) {
+    var a = el('nav-' + cats[i]);
+    if (a) a.className = cats[i] === cat ? 'on' : '';
+  }
+  renderHome(cat);
+  window.scrollTo(0, 0);
+}
+
+function openPost(id) {
+  currentView = { type: 'post', id: id };
+  renderPost(id);
+}
+
+function goHome() {
+  showCat('all');
+}
+
+function toggleLang() {
+  lang = lang === 'bn' ? 'en' : 'bn';
+  renderAll();
+}
+
+/* init: static text first, then load news.json */
+renderStaticText();
+el('content').innerHTML = '<p>খবর লোড হচ্ছে…</p>';
+fetch('news.json')
+  .then(function(r) { return r.json(); })
+  .then(function(data) { initPosts(data); })
+  .catch(function() { initPosts(null); });
+</script>
+</body>
+</html>
